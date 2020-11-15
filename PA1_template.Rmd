@@ -1,11 +1,11 @@
 ---
-title: "PA1_templat.Rmd"
+title: "PA1_template.Rmd"
 author: "Isaac M-V"
 date: "11/14/2020"
 output: html_document
 ---
 
-```{r, echo=T}
+```{r, echo=F}
 #What is mean total number of steps taken per day?
 #1. Calculate the total number of steps taken per day.
 setwd("~/Downloads")
@@ -23,7 +23,7 @@ summary(SumStepsByDay)
 ```
 
 
-```{r, echo=T}
+```{r, echo=F}
 #What is the average daily activity pattern?
 #1. Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis).
 stepsbyinterval <- aggregate(Activity$steps, by=list(Activity$interval),mean,na.rm=T)
@@ -35,7 +35,7 @@ stepsbyinterval[max_row,]
 ```
 
 
-```{r, echo=T}
+```{r, echo=F}
 #Imputing missing values
 #1) Imputing missing values. Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
 sum(is.na(Activity))
@@ -66,8 +66,7 @@ median(SumStepsByDay$x) #Here median changes sligthly.
 ```
 
 
-
-```{r, echo=T}
+```{r, echo=F}
 #1) Are there differences in activity patterns between weekdays and weekends? Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day. 
 Activity_no_NAs$day <- weekdays(as.Date(Activity_no_NAs$date))
 Activity_no_NAs$day[Activity_no_NAs$day == c("Saturday", "Sunday")] <- "weekend"
