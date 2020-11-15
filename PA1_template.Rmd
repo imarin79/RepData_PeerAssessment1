@@ -1,21 +1,15 @@
 ---
-  title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:  
-  keep_md: true
+title: "PA1_templat.Rmd"
+author: "Isaac M-V"
+date: "11/14/2020"
+output: html_document
 ---
 
-```{r setup, include=FALSE}
-## Loading and preprocessing the data
-setwd("~/Downloads")
-Activity <- read.csv("activity.csv",h=T, sep=",") #Load the data
-Activity$date <- as.Date(Activity$date) #Convert the date character variable into a date variable. 
-```
-
-```{r setup, include=FALSE}
+```{r, echo=T}
 #What is mean total number of steps taken per day?
 #1. Calculate the total number of steps taken per day.
-Activity <- read.csv("activity.csv",h=T, sep=",") #Load the data
+setwd("~/Downloads")
+Activity <- read.csv("activity.csv", h=T, sep=",") #Load the data
 Activity$date <- as.Date(Activity$date) #Convert the date character variable into a date variable. 
 MeanSteps <- aggregate(Activity$steps, by=list(Activity$date), mean,na.action=na.omit) #Here we calculate the mean of steps by day.
 
@@ -28,9 +22,9 @@ hist(SumStepsByDay$x)
 summary(SumStepsByDay)
 ```
 
-```{r setup, include=FALSE}
-#What is the average daily activity pattern?
 
+```{r, echo=T}
+#What is the average daily activity pattern?
 #1. Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis).
 stepsbyinterval <- aggregate(Activity$steps, by=list(Activity$interval),mean,na.rm=T)
 plot(stepsbyinterval$Group.1, stepsbyinterval$x, type="l", main="Averaged across all days", xlab="5-minute interval", ylab="Average number of steps")
@@ -40,7 +34,8 @@ max_row <- which.max(stepsbyinterval$x)
 stepsbyinterval[max_row,]
 ```
 
-```{r setup, include=FALSE}
+
+```{r, echo=T}
 #Imputing missing values
 #1) Imputing missing values. Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
 sum(is.na(Activity))
@@ -70,7 +65,9 @@ mean(SumStepsByDay$x) #No change
 median(SumStepsByDay$x) #Here median changes sligthly. 
 ```
 
-```{r setup, include=FALSE}
+
+
+```{r, echo=T}
 #1) Are there differences in activity patterns between weekdays and weekends? Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day. 
 Activity_no_NAs$day <- weekdays(as.Date(Activity_no_NAs$date))
 Activity_no_NAs$day[Activity_no_NAs$day == c("Saturday", "Sunday")] <- "weekend"
